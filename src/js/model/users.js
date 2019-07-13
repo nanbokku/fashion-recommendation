@@ -1,4 +1,4 @@
-import { connection } from './firestore-connection.js';
+import { connection } from '../connection/firestore-connection.js';
 
 export class UsersModel {
   constructor() {}
@@ -14,7 +14,7 @@ export class UsersModel {
       });
   }
 
-  get(id) {
+  fetch(id) {
     return connection
       .doc(id)
       .data()

@@ -1,6 +1,7 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
-export class DiagnosisView extends React.Component {
+class DiagnosisView extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,6 +14,7 @@ export class DiagnosisView extends React.Component {
           value="パーソナルカラー"
           onClick={event => {
             // 画面遷移
+            this.props.history.push('/personal-color');
           }}
         />
         <input
@@ -20,9 +22,12 @@ export class DiagnosisView extends React.Component {
           value="骨格診断"
           onClick={event => {
             // 画面遷移
+            this.props.history.push('/skeleton');
           }}
         />
       </span>
     );
   }
 }
+
+export default withRouter(DiagnosisView);
