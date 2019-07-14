@@ -1,4 +1,4 @@
-import { connection } from '../connection/firestore-connection.js';
+import { connection } from '../connection/firebase-connection.js';
 
 export class UsersModel {
   constructor() {}
@@ -17,9 +17,9 @@ export class UsersModel {
   fetch(id) {
     return connection
       .doc(id)
-      .data()
+      .get()
       .then(querySnapshot => {
-        return querySnapshot[0].data();
+        return querySnapshot.data();
       })
       .catch(error => {
         console.error(error);

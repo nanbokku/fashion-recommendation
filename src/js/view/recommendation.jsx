@@ -7,10 +7,12 @@ class RecommendationView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props.auth.addEventListener('logined', id => {
+    this.props.auth.events.addEventListener('logined', id => {
       this.id = id;
       this.props.onLogined(this.id);
     });
+
+    this.props.auth.authentication();
 
     // const diagnosed = $.cookie('diagnosed');
     // if (!diagnosed) {

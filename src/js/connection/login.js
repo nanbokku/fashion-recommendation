@@ -1,22 +1,20 @@
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import { auth } from './firebase-connection.js';
 import { Reactor } from '../utils/reactor';
 
 export class LoginAuthentication {
   constructor() {
     this.events = new Reactor();
 
-    firebase.auth().onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user => {
       if (user) {
-        const id = user.id;
+        const id = user.uid;
         this.events.dispatchEvent('logined', id);
       }
     });
   }
 
   authentication() {
-    firebase
-      .auth()
+    auth
       .signInAnonymously()
       .then()
       .catch(error => {

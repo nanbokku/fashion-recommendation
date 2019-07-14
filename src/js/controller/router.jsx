@@ -19,7 +19,8 @@ export class Router extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route
-            path={'/recommendation'}
+            exact
+            path={'/'}
             render={props => (
               <RecommendationView
                 auth={this.login}

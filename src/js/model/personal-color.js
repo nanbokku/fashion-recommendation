@@ -1,4 +1,4 @@
-import { UsersModel } from './users';
+import { UsersModel } from './users.js';
 
 class PersonalColorModel {
   constructor() {

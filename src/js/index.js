@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import { Controller } from './controller/controller.jsx';
+// import { Controller } from './controller/controller.jsx';
 import { Router } from './controller/router.jsx';
 
 $(() => {
