@@ -1,5 +1,5 @@
 import { auth } from './firebase-connection.js';
-import { Reactor } from '../utils/reactor';
+import { Reactor } from '../utils/reactor.js';
 
 export class LoginAuthentication {
   constructor() {
@@ -9,11 +9,12 @@ export class LoginAuthentication {
       if (user) {
         const id = user.uid;
         this.events.dispatchEvent('logined', id);
+      } else {
       }
     });
   }
 
-  authentication() {
+  signIn() {
     auth
       .signInAnonymously()
       .then()

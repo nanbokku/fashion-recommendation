@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-// import { Controller } from './controller/controller.jsx';
-import { Router } from './controller/router.jsx';
+import { Controller } from './controllers/controller.jsx';
 
 $(() => {
-  ReactDOM.render(<Router />, $('#content').get(0));
-  // const controller = new Controller();
+  ReactDOM.render(<Controller />, $('#content').get(0));
 });
