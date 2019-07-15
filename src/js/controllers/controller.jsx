@@ -68,7 +68,13 @@ export class Controller extends React.Component {
     if (this.state.nowShowing === ViewState.Recommendation) {
       main = <RecommendationView />;
     } else if (this.state.nowShowing === ViewState.Diagnosis) {
-      main = <DiagnosisView />;
+      main = (
+        <DiagnosisView
+          onPersonalColorBtnClicked={event => {
+            this.router.navigate('diagnosis/personal-color', { trigger: true });
+          }}
+        />
+      );
     } else if (this.state.nowShowing === ViewState.PersonalColorDiagnosis) {
       main = (
         <PersonalColorDiagnosisView

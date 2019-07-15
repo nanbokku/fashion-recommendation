@@ -8,15 +8,13 @@ export class DiagnosisView extends React.Component {
   render() {
     return (
       <span>
-        {/* <input
+        <input
           type="button"
           value="パーソナルカラー"
           onClick={event => {
-            // 画面遷移
-            // this.props.history.push('/personal-color');
+            this.props.onPersonalColorBtnClicked();
           }}
-        /> */}
-        <a href="./#diagnosis/personal-color">パーソナルカラー</a>
+        />
         <input
           type="button"
           value="骨格診断"
