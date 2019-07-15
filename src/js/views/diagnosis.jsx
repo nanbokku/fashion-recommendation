@@ -16,7 +16,7 @@ export class DiagnosisView extends React.Component {
             // this.props.history.push('/personal-color');
           }}
         /> */}
-        <a href="/#diagnosis/personal-color">パーソナルカラー</a>
+        <a href="./#diagnosis/personal-color">パーソナルカラー</a>
         <input
           type="button"
           value="骨格診断"
