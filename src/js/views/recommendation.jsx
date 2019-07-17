@@ -1,6 +1,5 @@
 import React from 'react';
 import $ from 'jquery';
-import 'jquery.cookie';
 
 export class RecommendationView extends React.Component {
   constructor(props) {

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import { Controller } from './controllers/controller.jsx';
+import { App } from './controllers/app.jsx';
 
 $(() => {
-  ReactDOM.render(<Controller />, $('#content').get(0));
+  ReactDOM.render(<App />, $('#content').get(0));
 });

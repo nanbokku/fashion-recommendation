@@ -1,4 +1,5 @@
 import { Reactor } from '../utils/reactor';
+import { PersonalColorType } from '../constants/constants';
 
 export class PersonalColorService {
   constructor(repository) {
@@ -38,18 +39,18 @@ export class PersonalColorService {
       // イエローベースのとき
       if (eyeJudge === 0) {
         // springタイプ
-        return 'spring';
+        return PersonalColorType.Spring.string;
       } else {
         // autumnタイプ
-        return 'autumn';
+        return PersonalColorType.Autumn.string;
       }
     } else {
       if (eyeJudge === 0) {
         // summerタイプ
-        return 'summer';
+        return PersonalColorType.Summer.string;
       } else {
         // winterタイプ
-        return 'winter';
+        return PersonalColorType.Winter.string;
       }
     }
   }

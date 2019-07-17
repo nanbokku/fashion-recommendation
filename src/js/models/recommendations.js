@@ -1,5 +1,7 @@
 import { Reactor } from '../utils/reactor.js';
+import Backbone from 'backbone';
 
+//TODO: backbone.collection継承に変更する
 export class RecommendationsModel {
   constructor() {
     this.events = new Reactor();
