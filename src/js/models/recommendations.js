@@ -6,44 +6,84 @@ export class RecommendationsModel {
   constructor() {
     this.events = new Reactor();
 
-    this.all = [];
-    this.tops = [];
-    this.outors = [];
-    this.bottoms = [];
+    this.type = null;
+    this.redies = [];
+    this.mens = [];
+  }
+
+  get personalColorType() {
+    return this.type;
+  }
+
+  setPersonalColorType(type) {
+    this.type = type;
   }
 
   add(item) {
-    this.all.push(item);
-
     const category = item.category;
     eval('this.' + category).push(item); // カテゴリーごとの配列に格納
 
     this.events.dispatchEvent('added', item);
   }
 
+  push(items, categoryName) {
+    const data = items.map(item => {
+      return {
+        name: item.Name,
+        img: item.ExImage.Url,
+        url: item.Url,
+        description: item.Description.substr(0, 100) + '...' // 100文字以下とする
+      };
+    });
+    if (categoryName === 'redies') {
+      this.redies = this.redies.concat(data);
+    } else {
+      this.mens = this.mens.concat(data);
+    }
+
+    this.events.dispatchEvent('pushed', data);
+  }
+
+  getAll(categoryName) {
+    if (categoryName === 'redies') {
+      return this.redies;
+    } else if (categoryName === 'mens') {
+      return this.mens;
+    } else return null;
+  }
+
   get(id) {
-    const index = this.findIndex(this.all, id);
-    return this.all[index];
+    let index = this.findIndex(this.redies, id);
+    if (index) return this.redies[index];
+
+    index = this.findIndex(this.mens, id);
+    if (index) return this.mens[index];
+
+    return null;
   }
 
   update(item) {
-    const allIndex = this.findIndex(this.all, item.id);
-    this.all[allIndex] = item;
-
-    const category = eval('this.' + item.category);
-    const catIndex = this.findIndex(category, item.id);
-    category[catIndex] = item;
+    if (item.category === 'redies') {
+      const index = this.findIndex(this.redies, item.id);
+      this.redies[index] = item;
+    } else if (item.category === 'mens') {
+      const index = this.findIndex(this.mens, item.id);
+      this.mens[index] = item;
+    } else {
+      return;
+    }
 
     this.events.dispatchEvent('updated', item);
   }
 
   delete(id) {
-    const allIndex = this.findIndex(this.all, id);
-    const category = eval('this.' + this.all[allIndex].category);
-    const catIndex = this.findIndex(category, id);
+    let index = this.findIndex(this.redies, id);
+    if (index) this.redies[index].splice(index, 1);
 
-    this.all.splice(allIndex, 1);
-    category.splice(catIndex, 1);
+    index = this.findIndex(this.mens, id);
+    if (index) this.mens[index].splice(index, 1);
+
+    if (!index) return;
 
     this.events.dispatchEvent('deleted', id);
   }

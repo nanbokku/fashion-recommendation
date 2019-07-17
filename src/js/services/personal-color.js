@@ -25,8 +25,9 @@ export class PersonalColorService {
   async addPersonalColorType(id, answers) {
     const type = this.judgePersonalColorType(answers);
     try {
-      await this.repository.add({ id, type });
-      this.events.dispatchEvent('added');
+      const data = { id, type };
+      await this.repository.add(data);
+      this.events.dispatchEvent('added', data);
     } catch (e) {}
   }
 

@@ -24,6 +24,8 @@ export class Reactor {
   }
 
   dispatchEvent(eventName, eventArgs) {
+    if (!(eventName in this.events)) return;
+
     this.events[eventName].callbacks.forEach(callback => {
       callback(eventArgs);
     });

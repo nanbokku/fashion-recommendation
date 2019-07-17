@@ -17,34 +17,28 @@ export class App extends React.Component {
     super(props);
 
     this.state = {
-      nowShowing: ViewState.Recommendation
+      nowShowing: ViewState.None
     };
 
     this.router = new Router();
+    this.controller = new Controller();
     this.recommendModel = new RecommendationsModel();
     this.personalColorService = new PersonalColorService(new UsersRepository());
     this.login = new LoginAuthentication();
 
-    this.personalColorService.events.addEventListener('added', async () => {
-      const type = await this.personalColorService.fetchPersonalColorType(
-        this.id
-      );
+    this.personalColorService.events.addEventListener('added', async data => {
+      const type = data.type;
+      await this.addFashionItems(type);
+
       this.router.navigate('personal-color/' + type, { trigger: true });
     });
 
     this.login.events.addEventListener('logined', async id => {
       this.id = id;
 
-      const controller = new Controller();
-      // const personalColorType = Object.values(PersonalColorType).find(
-      //   val => val.string === 'spring'
-      // );
-      // console.log(personalColorType);
-      const data = await controller.fetchRediesItems(PersonalColorType.Spring);
-      console.log(data);
-
       const type = await this.personalColorService.fetchPersonalColorType(id);
       if (type) {
+        await this.addFashionItems(type);
         this.router.navigate('recommendation', { trigger: true });
       } else {
         // idがデータベースに登録されていなかったとき
@@ -57,7 +51,7 @@ export class App extends React.Component {
 
   componentDidMount() {
     // setStateによるエラー回避のため，ここでイベントをセットする
-    this.router.events.addEventListener('recommendation', () => {
+    this.router.events.addEventListener('recommendation', async () => {
       this.setState({ nowShowing: ViewState.Recommendation });
     });
     this.router.events.addEventListener('diagnosis', () => {
@@ -74,8 +68,10 @@ export class App extends React.Component {
 
   render() {
     let main;
-    if (this.state.nowShowing === ViewState.Recommendation) {
-      main = <RecommendationView />;
+    if (this.state.nowShowing === ViewState.None) {
+      main = <div />;
+    } else if (this.state.nowShowing === ViewState.Recommendation) {
+      main = <RecommendationView model={this.recommendModel} />;
     } else if (this.state.nowShowing === ViewState.Diagnosis) {
       main = (
         <DiagnosisView
@@ -96,6 +92,21 @@ export class App extends React.Component {
       main = <PersonalColorView />;
     }
 
-    return <div>{main}</div>;
+    return main;
+  }
+
+  async addFashionItems(typeString) {
+    const personalColorType = Object.values(PersonalColorType).find(
+      obj => obj.string === typeString
+    );
+    const rediesItems = await this.controller.fetchRediesItems(
+      personalColorType
+    );
+    const mensItems = await this.controller.fetchMensItems(personalColorType);
+    console.log(rediesItems);
+
+    this.recommendModel.setPersonalColorType(personalColorType);
+    this.recommendModel.push(rediesItems, 'redies');
+    this.recommendModel.push(mensItems, 'mens');
   }
 }

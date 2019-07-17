@@ -1,10 +1,4 @@
-// import React from 'react';
-// import RecommendationView from '../view/recommendation.jsx';
 import Backbone from 'backbone';
-// import DiagnosisView from '../view/diagnosis.jsx';
-// import { LoginAuthentication } from '../connection/login.js';
-// import PersonalColorDiagnosisView from '../view/personal-color-diagnosis.jsx';
-// import { UsersModel } from '../model/users.js';
 import { Reactor } from '../utils/reactor.js';
 
 export class Router extends Backbone.Router {
@@ -16,7 +10,7 @@ export class Router extends Backbone.Router {
 
   routes() {
     return {
-      '': 'recommendation',
+      recommendation: 'recommendation',
       diagnosis: 'diagnosis',
       'diagnosis/personal-color': 'personalColorDiagnosis',
       'personal-color/:type': 'personalColorResult'

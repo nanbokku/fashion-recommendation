@@ -1,19 +1,23 @@
 export const ViewState = {
+  None: {
+    string: 'none',
+    number: 0
+  },
   Recommendation: {
     string: 'recommendation',
-    number: 0
+    number: 1
   },
   Diagnosis: {
     string: 'diagnosis',
-    number: 1
+    number: 2
   },
   PersonalColorDiagnosis: {
     string: 'personal-color-diagnosis',
-    number: 2
+    number: 3
   },
   PersonalColorResult: {
     string: 'personal-color-result',
-    number: 3
+    number: 4
   }
 };
 

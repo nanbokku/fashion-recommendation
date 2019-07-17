@@ -6,7 +6,7 @@ const baseUrl =
   appid;
 const RediesCategoryIds = { Tops: 36861, Bottoms: 36913 };
 const MensCategoryIds = { Tops: 36504, Bottoms: 36624 };
-const imageSize = 146;
+const imageSize = 300;
 
 const PersonalColorKeywords = [
   'アイボリー キャメル ウォームグレー グリーン ピーチピンク コーラルピンク クリアレッド ブライトネイビー ピーチ',

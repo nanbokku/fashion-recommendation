@@ -1,25 +1,23 @@
 import React from 'react';
-import $ from 'jquery';
+import { TabView } from './tab';
 
 export class RecommendationView extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.props.auth.events.addEventListener('logined', id => {
-    //   this.id = id;
-    //   this.props.onLogined(this.id);
-    // });
-
-    // this.props.auth.authentication();
-
-    // const diagnosed = $.cookie('diagnosed');
-    // if (!diagnosed) {
-    //   this.props.onCookieChecked(diagnosed);
-    //   return;
-    // }
+    this.personalColorType = this.props.model.personalColorType;
   }
 
   render() {
-    return <div />;
+    return (
+      <div>
+        <center>
+          {'パーソナルカラーが' +
+            this.personalColorType.string +
+            'のあなたへのおすすめアイテムはこちら'}
+        </center>
+        <TabView model={this.props.model} />
+      </div>
+    );
   }
 }
