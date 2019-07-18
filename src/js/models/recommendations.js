@@ -76,6 +76,11 @@ export class RecommendationsModel {
     this.events.dispatchEvent('updated', item);
   }
 
+  deleteAll() {
+    this.redies = [];
+    this.mens = [];
+  }
+
   delete(id) {
     let index = this.findIndex(this.redies, id);
     if (index) this.redies[index].splice(index, 1);

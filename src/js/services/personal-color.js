@@ -36,7 +36,7 @@ export class PersonalColorService {
     const eyeJudge = answers.slice(-1)[0];
     const yellowCount = skinJudgeAry.filter(answer => answer === 0).length; // イエローベースの項目数
 
-    if (yellowCount > answers.length - 1) {
+    if (yellowCount > (answers.length - 1) / 2) {
       // イエローベースのとき
       if (eyeJudge === 0) {
         // springタイプ

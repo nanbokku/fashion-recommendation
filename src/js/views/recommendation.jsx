@@ -6,19 +6,16 @@ import { CardView } from './card';
 export class RecommendationView extends React.Component {
   constructor(props) {
     super(props);
-
-    this.personalColorType = this.props.model.personalColorType;
   }
 
   render() {
+    const type = this.props.model.personalColorType.string.toUpperCase();
     return (
       <div>
         <CardView
-          title={'パーソナルカラー：SUMMERタイプ'}
+          title={'パーソナルカラー：' + type + 'タイプ'}
           text={
-            'パーソナルカラーが' +
-            this.personalColorType.string.toUpperCase() +
-            'のあなたへのおすすめアイテムはこちら'
+            'パーソナルカラーが' + type + 'のあなたへのおすすめアイテムはこちら'
           }
           child={
             <Button

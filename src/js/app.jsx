@@ -27,7 +27,7 @@ export class App extends React.Component {
 
     this.personalColorService.events.addEventListener('added', async data => {
       const type = data.type;
-      await this.addFashionItems(type);
+      await this.registerFashionItems(type);
 
       this.router.navigate('personal-color/' + type, { trigger: true });
     });
@@ -37,7 +37,7 @@ export class App extends React.Component {
 
       const type = await this.personalColorService.fetchPersonalColorType(id);
       if (type) {
-        await this.addFashionItems(type);
+        await this.registerFashionItems(type);
         this.router.navigate('recommendation', { trigger: true });
       } else {
         // idがデータベースに登録されていなかったとき
@@ -101,7 +101,7 @@ export class App extends React.Component {
     return main;
   }
 
-  async addFashionItems(typeString) {
+  async registerFashionItems(typeString) {
     const personalColorType = Object.values(PersonalColorType).find(
       obj => obj.string === typeString
     );
@@ -109,6 +109,8 @@ export class App extends React.Component {
       personalColorType
     );
     const mensItems = await this.controller.fetchMensItems(personalColorType);
+
+    this.recommendModel.deleteAll();
 
     this.recommendModel.setPersonalColorType(personalColorType);
     this.recommendModel.push(rediesItems, 'redies');
