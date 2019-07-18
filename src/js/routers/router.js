@@ -11,7 +11,7 @@ export class Router extends Backbone.Router {
   routes() {
     return {
       recommendation: 'recommendation',
-      diagnosis: 'diagnosis',
+      // diagnosis: 'diagnosis',
       'diagnosis/personal-color': 'personalColorDiagnosis',
       'personal-color/:type': 'personalColorResult'
     };

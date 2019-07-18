@@ -6,7 +6,6 @@ import { PersonalColorService } from '../services/personal-color.js';
 import { UsersRepository } from '../repository/users.js';
 import { LoginAuthentication } from '../connection/login.js';
 import { RecommendationView } from '../views/recommendation.jsx';
-import { DiagnosisView } from '../views/diagnosis.jsx';
 import { PersonalColorDiagnosisView } from '../views/personal-color-diagnosis.jsx';
 import { ViewState, PersonalColorType } from '../constants/constants.js';
 import { PersonalColorView } from '../views/personal-color.jsx';
@@ -81,8 +80,6 @@ export class App extends React.Component {
           }}
         />
       );
-    } else if (this.state.nowShowing === ViewState.Diagnosis) {
-      main = <PersonalColorDiagnosisView />;
     } else if (this.state.nowShowing === ViewState.PersonalColorDiagnosis) {
       main = (
         <PersonalColorDiagnosisView
@@ -92,7 +89,13 @@ export class App extends React.Component {
         />
       );
     } else {
-      main = <PersonalColorView />;
+      main = (
+        <PersonalColorView
+          onTopPageBtnClicked={() => {
+            this.router.navigate('recommendation', { trigger: true });
+          }}
+        />
+      );
     }
 
     return main;

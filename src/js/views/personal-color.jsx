@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { CardView } from './card';
 
 export class PersonalColorView extends React.Component {
@@ -15,6 +16,22 @@ export class PersonalColorView extends React.Component {
       return <ColorBox key={i} color={c} />;
     });
 
+    const children = (
+      <div style={{ textAlign: 'center' }}>
+        {colors}
+        <Button
+          className="m-4"
+          variant="primary"
+          size="sm"
+          onClick={event => {
+            this.props.onTopPageBtnClicked();
+          }}
+        >
+          {'トップページに戻る'}
+        </Button>
+      </div>
+    );
+
     return (
       <div style={{ whilteSpace: 'pre-line' }}>
         <CardView
@@ -24,7 +41,7 @@ export class PersonalColorView extends React.Component {
             this.type.toUpperCase() +
             ' です．\nあなたに似合う色はこちらです．'
           }
-          child={<div className="color-container">{colors}</div>}
+          child={children}
         />
       </div>
     );
