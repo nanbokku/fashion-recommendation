@@ -1,15 +1,15 @@
 import React from 'react';
 import Backbone from 'backbone';
-import { Router } from '../routers/router.js';
-import { RecommendationsModel } from '../models/recommendations.js';
-import { PersonalColorService } from '../services/personal-color.js';
-import { UsersRepository } from '../repository/users.js';
-import { LoginAuthentication } from '../connection/login.js';
-import { RecommendationView } from '../views/recommendation.jsx';
-import { PersonalColorDiagnosisView } from '../views/personal-color-diagnosis.jsx';
-import { ViewState, PersonalColorType } from '../constants/constants.js';
-import { PersonalColorView } from '../views/personal-color.jsx';
-import { YahooShoppingAPIController } from './controller.js';
+import { Router } from './routers/router.js';
+import { RecommendationsModel } from './models/recommendations.js';
+import { PersonalColorService } from './services/personal-color.js';
+import { UsersRepository } from './repository/users.js';
+import { LoginAuthentication } from './connection/login.js';
+import { RecommendationView } from './views/recommendation.jsx';
+import { PersonalColorDiagnosisView } from './views/personal-color-diagnosis.jsx';
+import { ViewState, PersonalColorType } from './constants/constants.js';
+import { PersonalColorView } from './views/personal-color.jsx';
+import { YahooShoppingAPIController } from './controllers/yahoo-shopping-api.js';
 
 export class App extends React.Component {
   constructor(props) {

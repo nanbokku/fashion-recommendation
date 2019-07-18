@@ -60,6 +60,7 @@ export class YahooShoppingAPIController {
       '&image_size=' +
       imageSize +
       '&type=any' +
+      '&condition=new' +
       '&query=' +
       keyword;
 
