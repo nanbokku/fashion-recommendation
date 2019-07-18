@@ -8,15 +8,14 @@ export class CardView extends React.Component {
 
   render() {
     return (
-      <a href={this.props.link}>
-        <Card>
-          <Card.Img variant="top" src={this.props.img} />
-          <Card.Body>
-            <Card.Title>{this.props.title}</Card.Title>
-            <Card.Text>{this.props.text}</Card.Text>
-          </Card.Body>
-        </Card>
-      </a>
+      <Card>
+        <Card.Img variant="top" src={this.props.img} />
+        <Card.Body>
+          <Card.Title>{this.props.title}</Card.Title>
+          <Card.Text>{this.props.text}</Card.Text>
+          {this.props.child}
+        </Card.Body>
+      </Card>
     );
   }
 }

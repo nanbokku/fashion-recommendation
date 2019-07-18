@@ -12,14 +12,24 @@ export class TabView extends React.Component {
       mens: []
     };
 
+    this._isMounted = false;
+
     this.props.model.events.addEventListener('pushed', () => {
+      if (!this._isMounted) return;
+
       const redies = this.props.model.getAll('redies');
       const mens = this.props.model.getAll('mens');
       this.setState({ redies, mens });
     });
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   componentDidMount() {
+    this._isMounted = true;
+
     const redies = this.props.model.getAll('redies');
     const mens = this.props.model.getAll('mens');
     this.setState({ redies, mens });
@@ -46,13 +56,14 @@ export class TabView extends React.Component {
   createTabContents(data) {
     return data.map((item, i) => {
       return (
-        <CardView
-          key={i}
-          title={item.name}
-          text={item.description}
-          img={item.img}
-          link={item.url}
-        />
+        <a href={item.url} key={i}>
+          <CardView
+            title={item.name}
+            text={item.description}
+            img={item.img}
+            link={item.url}
+          />
+        </a>
       );
     });
   }

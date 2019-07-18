@@ -10,7 +10,7 @@ import { DiagnosisView } from '../views/diagnosis.jsx';
 import { PersonalColorDiagnosisView } from '../views/personal-color-diagnosis.jsx';
 import { ViewState, PersonalColorType } from '../constants/constants.js';
 import { PersonalColorView } from '../views/personal-color.jsx';
-import { Controller } from './controller.js';
+import { YahooShoppingAPIController } from './controller.js';
 
 export class App extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ export class App extends React.Component {
     };
 
     this.router = new Router();
-    this.controller = new Controller();
+    this.controller = new YahooShoppingAPIController();
     this.recommendModel = new RecommendationsModel();
     this.personalColorService = new PersonalColorService(new UsersRepository());
     this.login = new LoginAuthentication();
@@ -42,7 +42,7 @@ export class App extends React.Component {
         this.router.navigate('recommendation', { trigger: true });
       } else {
         // idがデータベースに登録されていなかったとき
-        this.router.navigate('diagnosis', { trigger: true });
+        this.router.navigate('diagnosis/personal-color', { trigger: true });
       }
     });
 
@@ -54,9 +54,9 @@ export class App extends React.Component {
     this.router.events.addEventListener('recommendation', async () => {
       this.setState({ nowShowing: ViewState.Recommendation });
     });
-    this.router.events.addEventListener('diagnosis', () => {
-      this.setState({ nowShowing: ViewState.Diagnosis });
-    });
+    // this.router.events.addEventListener('diagnosis', () => {
+    //   this.setState({ nowShowing: ViewState.Diagnosis });
+    // });
     this.router.events.addEventListener('personal-color-diagnosis', () => {
       this.setState({ nowShowing: ViewState.PersonalColorDiagnosis });
     });
@@ -71,15 +71,18 @@ export class App extends React.Component {
     if (this.state.nowShowing === ViewState.None) {
       main = <div />;
     } else if (this.state.nowShowing === ViewState.Recommendation) {
-      main = <RecommendationView model={this.recommendModel} />;
-    } else if (this.state.nowShowing === ViewState.Diagnosis) {
       main = (
-        <DiagnosisView
-          onPersonalColorBtnClicked={event => {
-            this.router.navigate('diagnosis/personal-color', { trigger: true });
+        <RecommendationView
+          model={this.recommendModel}
+          onPersonalDiagnosisBtnClicked={() => {
+            this.router.navigate('diagnosis/personal-color', {
+              trigger: true
+            });
           }}
         />
       );
+    } else if (this.state.nowShowing === ViewState.Diagnosis) {
+      main = <PersonalColorDiagnosisView />;
     } else if (this.state.nowShowing === ViewState.PersonalColorDiagnosis) {
       main = (
         <PersonalColorDiagnosisView
@@ -103,7 +106,6 @@ export class App extends React.Component {
       personalColorType
     );
     const mensItems = await this.controller.fetchMensItems(personalColorType);
-    console.log(rediesItems);
 
     this.recommendModel.setPersonalColorType(personalColorType);
     this.recommendModel.push(rediesItems, 'redies');

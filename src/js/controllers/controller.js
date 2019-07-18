@@ -15,7 +15,7 @@ const PersonalColorKeywords = [
   'ホワイト ブラック ロイヤルブルー ワインレッド レモンイエロー ベリーレッド パープル アイシー'
 ];
 
-export class Controller {
+export class YahooShoppingAPIController {
   constructor() {}
 
   async fetchRediesItems(personalColorType) {

@@ -15,14 +15,6 @@ export class DiagnosisView extends React.Component {
             this.props.onPersonalColorBtnClicked();
           }}
         />
-        <input
-          type="button"
-          value="骨格診断"
-          onClick={event => {
-            // 画面遷移
-            // this.props.history.push('/skeleton');
-          }}
-        />
       </span>
     );
   }

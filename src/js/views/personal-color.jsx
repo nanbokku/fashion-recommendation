@@ -1,4 +1,5 @@
 import React from 'react';
+import { CardView } from './card';
 
 export class PersonalColorView extends React.Component {
   constructor(props) {
@@ -15,12 +16,16 @@ export class PersonalColorView extends React.Component {
     });
 
     return (
-      <div>
-        あなたのパーソナルカラータイプは
-        {this.type}です．
-        <br />
-        あなたに似合う色はこちらです．
-        <div className="color-container">{colors}</div>
+      <div style={{ whilteSpace: 'pre-line' }}>
+        <CardView
+          title={'Result'}
+          text={
+            'あなたのパーソナルカラータイプは ' +
+            this.type.toUpperCase() +
+            ' です．\nあなたに似合う色はこちらです．'
+          }
+          child={<div className="color-container">{colors}</div>}
+        />
       </div>
     );
   }
@@ -32,7 +37,12 @@ class ColorBox extends React.Component {
   }
 
   render() {
-    const style = { width: 50, height: 50, backgroundColor: this.props.color };
+    const style = {
+      width: 50,
+      height: 50,
+      backgroundColor: this.props.color,
+      float: 'left'
+    };
 
     return <div className="color-box" style={style} />;
   }

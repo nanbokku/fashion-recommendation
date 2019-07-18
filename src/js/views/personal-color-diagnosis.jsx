@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
+import { CardView } from './card';
 
 export class PersonalColorDiagnosisView extends React.Component {
   constructor(props) {
@@ -35,22 +37,35 @@ export class PersonalColorDiagnosisView extends React.Component {
 
     return (
       <div>
-        {this.state.question.question}
-        <input
-          type="button"
-          value={this.state.question.choices[0]}
-          onClick={event => {
-            this.answers.push(0);
-            onClicked(event);
-          }}
-        />
-        <input
-          type="button"
-          value={this.state.question.choices[1]}
-          onClick={event => {
-            this.answers.push(1);
-            onClicked(event);
-          }}
+        <CardView
+          title={'Question'}
+          text={this.state.question.question}
+          child={
+            <div>
+              <Button
+                variant="primary"
+                size="lg"
+                block
+                onClick={event => {
+                  this.answers.push(0);
+                  onClicked(event);
+                }}
+              >
+                {this.state.question.choices[0]}
+              </Button>
+              <Button
+                variant="primary"
+                size="lg"
+                block
+                onClick={event => {
+                  this.answers.push(1);
+                  onClicked(event);
+                }}
+              >
+                {this.state.question.choices[1]}
+              </Button>
+            </div>
+          }
         />
       </div>
     );
@@ -59,12 +74,23 @@ export class PersonalColorDiagnosisView extends React.Component {
   renderStartBtn() {
     return (
       <div>
-        <input
-          type="button"
-          value="パーソナルカラー診断を始める"
-          onClick={event => {
-            this.setState({ id: 0, question: findQuestion(0) });
-          }}
+        <CardView
+          title={'パーソナルカラー診断'}
+          text={
+            '自分のパーソナルカラーを知っていますか？\n簡単に診断してみましょう！'
+          }
+          child={
+            <Button
+              variant="primary"
+              size="sm"
+              block
+              onClick={event => {
+                this.setState({ id: 0, question: findQuestion(0) });
+              }}
+            >
+              {'パーソナルカラー診断を始める'}
+            </Button>
+          }
         />
       </div>
     );
