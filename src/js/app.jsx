@@ -105,15 +105,13 @@ export class App extends React.Component {
     const personalColorType = Object.values(PersonalColorType).find(
       obj => obj.string === typeString
     );
-    const rediesItems = await this.controller.fetchRediesItems(
-      personalColorType
-    );
-    const mensItems = await this.controller.fetchMensItems(personalColorType);
+    const womenItems = await this.controller.fetchWomenItems(personalColorType);
+    const menItems = await this.controller.fetchMenItems(personalColorType);
 
     this.recommendModel.deleteAll();
 
     this.recommendModel.setPersonalColorType(personalColorType);
-    this.recommendModel.push(rediesItems, 'redies');
-    this.recommendModel.push(mensItems, 'mens');
+    this.recommendModel.push(womenItems, 'women');
+    this.recommendModel.push(menItems, 'men');
   }
 }

@@ -4,8 +4,8 @@ const appid = 'dj00aiZpPThxMjRsdXJ1ZXJscCZzPWNvbnN1bWVyc2VjcmV0Jng9ZDA-';
 const baseUrl =
   'https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch?appid=' +
   appid;
-const RediesCategoryIds = { Tops: 36861, Bottoms: 36913 };
-const MensCategoryIds = { Tops: 36504, Bottoms: 36624 };
+const WomenCategoryIds = { Tops: 36861, Bottoms: 36913 };
+const MenCategoryIds = { Tops: 36504, Bottoms: 36624 };
 const imageSize = 300;
 
 const PersonalColorKeywords = [
@@ -18,38 +18,38 @@ const PersonalColorKeywords = [
 export class YahooShoppingAPIController {
   constructor() {}
 
-  async fetchRediesItems(personalColorType) {
+  async fetchWomenItems(personalColorType) {
     const keyword = PersonalColorKeywords[personalColorType.number];
 
-    const tops = await this.fetchRediesTops(keyword);
-    const bottoms = await this.fetchRediesBottoms(keyword);
+    const tops = await this.fetchWomenTops(keyword);
+    const bottoms = await this.fetchWomenBottoms(keyword);
 
     return tops.concat(bottoms);
   }
 
-  async fetchMensItems(personalColorType) {
+  async fetchMenItems(personalColorType) {
     const keyword = PersonalColorKeywords[personalColorType.number];
 
-    const tops = await this.fetchMensTops(keyword);
-    const bottoms = await this.fetchMensBottoms(keyword);
+    const tops = await this.fetchMenTops(keyword);
+    const bottoms = await this.fetchMenBottoms(keyword);
 
     return tops.concat(bottoms);
   }
 
-  fetchMensBottoms(keyword) {
-    return this.fetch(MensCategoryIds.Bottoms, keyword);
+  fetchMenBottoms(keyword) {
+    return this.fetch(MenCategoryIds.Bottoms, keyword);
   }
 
-  fetchMensTops(keyword) {
-    return this.fetch(MensCategoryIds.Tops, keyword);
+  fetchMenTops(keyword) {
+    return this.fetch(MenCategoryIds.Tops, keyword);
   }
 
-  fetchRediesBottoms(keyword) {
-    return this.fetch(RediesCategoryIds.Bottoms, keyword);
+  fetchWomenBottoms(keyword) {
+    return this.fetch(WomenCategoryIds.Bottoms, keyword);
   }
 
-  fetchRediesTops(keyword) {
-    return this.fetch(RediesCategoryIds.Tops, keyword);
+  fetchWomenTops(keyword) {
+    return this.fetch(WomenCategoryIds.Tops, keyword);
   }
 
   fetch(categoryId, keyword) {

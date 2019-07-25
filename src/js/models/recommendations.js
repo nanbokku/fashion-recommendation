@@ -7,8 +7,8 @@ export class RecommendationsModel {
     this.events = new Reactor();
 
     this.type = null;
-    this.redies = [];
-    this.mens = [];
+    this.women = [];
+    this.men = [];
   }
 
   get personalColorType() {
@@ -35,40 +35,40 @@ export class RecommendationsModel {
         description: item.Description.substr(0, 100) + '...' // 100文字以下とする
       };
     });
-    if (categoryName === 'redies') {
-      this.redies = this.redies.concat(data);
+    if (categoryName === 'women') {
+      this.women = this.women.concat(data);
     } else {
-      this.mens = this.mens.concat(data);
+      this.men = this.men.concat(data);
     }
 
     this.events.dispatchEvent('pushed', data);
   }
 
   getAll(categoryName) {
-    if (categoryName === 'redies') {
-      return this.redies;
-    } else if (categoryName === 'mens') {
-      return this.mens;
+    if (categoryName === 'women') {
+      return this.women;
+    } else if (categoryName === 'men') {
+      return this.men;
     } else return null;
   }
 
   get(id) {
-    let index = this.findIndex(this.redies, id);
-    if (index) return this.redies[index];
+    let index = this.findIndex(this.women, id);
+    if (index) return this.women[index];
 
-    index = this.findIndex(this.mens, id);
-    if (index) return this.mens[index];
+    index = this.findIndex(this.men, id);
+    if (index) return this.men[index];
 
     return null;
   }
 
   update(item) {
-    if (item.category === 'redies') {
-      const index = this.findIndex(this.redies, item.id);
-      this.redies[index] = item;
-    } else if (item.category === 'mens') {
-      const index = this.findIndex(this.mens, item.id);
-      this.mens[index] = item;
+    if (item.category === 'women') {
+      const index = this.findIndex(this.women, item.id);
+      this.women[index] = item;
+    } else if (item.category === 'men') {
+      const index = this.findIndex(this.men, item.id);
+      this.men[index] = item;
     } else {
       return;
     }
@@ -77,16 +77,16 @@ export class RecommendationsModel {
   }
 
   deleteAll() {
-    this.redies = [];
-    this.mens = [];
+    this.women = [];
+    this.men = [];
   }
 
   delete(id) {
-    let index = this.findIndex(this.redies, id);
-    if (index) this.redies[index].splice(index, 1);
+    let index = this.findIndex(this.women, id);
+    if (index) this.women[index].splice(index, 1);
 
-    index = this.findIndex(this.mens, id);
-    if (index) this.mens[index].splice(index, 1);
+    index = this.findIndex(this.men, id);
+    if (index) this.men[index].splice(index, 1);
 
     if (!index) return;
 

@@ -8,8 +8,8 @@ export class TabView extends React.Component {
     super(props);
 
     this.state = {
-      redies: [],
-      mens: []
+      women: [],
+      men: []
     };
 
     this._isMounted = false;
@@ -17,9 +17,9 @@ export class TabView extends React.Component {
     this.props.model.events.addEventListener('pushed', () => {
       if (!this._isMounted) return;
 
-      const redies = this.props.model.getAll('redies');
-      const mens = this.props.model.getAll('mens');
-      this.setState({ redies, mens });
+      const women = this.props.model.getAll('women');
+      const men = this.props.model.getAll('men');
+      this.setState({ women, men });
     });
   }
 
@@ -30,23 +30,23 @@ export class TabView extends React.Component {
   componentDidMount() {
     this._isMounted = true;
 
-    const redies = this.props.model.getAll('redies');
-    const mens = this.props.model.getAll('mens');
-    this.setState({ redies, mens });
+    const women = this.props.model.getAll('women');
+    const men = this.props.model.getAll('men');
+    this.setState({ women, men });
   }
 
   render() {
-    const redies = this.createTabContents(this.state.redies);
-    const mens = this.createTabContents(this.state.mens);
+    const women = this.createTabContents(this.state.women);
+    const men = this.createTabContents(this.state.men);
 
     return (
       <div className="p-3">
         <Tabs fill defaultActiveKey={0}>
-          <Tab eventKey={0} title="Redies">
-            <CarouselView id={'redies-carousel'} items={redies} />
+          <Tab eventKey={0} title="Women">
+            <CarouselView id={'women-carousel'} items={women} />
           </Tab>
-          <Tab eventKey={1} title="Mens">
-            <CarouselView id={'mens-carousel'} items={mens} />
+          <Tab eventKey={1} title="Men">
+            <CarouselView id={'men-carousel'} items={men} />
           </Tab>
         </Tabs>
       </div>
