@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --config webpack.dev.js --watch",
-    "prepare": "webpack --config webpack.config.js"
+    "prepare": "webpack --config webpack.config.js",
+    "report": "./node_modules/.bin/es6-plato -r -d ../report js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.0.0",
+    "es6-plato": "^1.2.2",
     "style-loader": "^0.23.1",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5",
