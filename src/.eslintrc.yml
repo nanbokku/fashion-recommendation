@@ -16,6 +16,7 @@ rules:
   indent:
     - error
     - 2
+    - { 'SwitchCase': 1 }
   linebreak-style:
     - error
     - windows
@@ -27,3 +28,5 @@ rules:
     - always
   no-undef: warn
   no-unused-vars: warn
+  no-console: off
+  no-empty: warn

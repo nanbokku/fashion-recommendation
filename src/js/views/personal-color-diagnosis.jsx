@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { CardView } from './card';
 
@@ -11,6 +12,12 @@ export class PersonalColorDiagnosisView extends React.Component {
     this.state = {
       id: -1,
       question: null
+    };
+  }
+
+  static get propTypes() {
+    return {
+      onDiagnosisFinished: PropTypes.func
     };
   }
 
@@ -84,7 +91,7 @@ export class PersonalColorDiagnosisView extends React.Component {
               variant="primary"
               size="sm"
               block
-              onClick={event => {
+              onClick={() => {
                 this.setState({ id: 0, question: findQuestion(0) });
               }}
             >

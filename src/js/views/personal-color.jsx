@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { CardView } from './card';
 
@@ -8,6 +9,12 @@ export class PersonalColorView extends React.Component {
 
     const hash = location.hash;
     this.type = hash.substr(hash.indexOf('/') + 1); // 最後の'/'以降の文字列を取得
+  }
+
+  static get propTypes() {
+    return {
+      onTopPageBtnClicked: PropTypes.func
+    };
   }
 
   render() {
@@ -23,7 +30,7 @@ export class PersonalColorView extends React.Component {
           className="m-4"
           variant="primary"
           size="sm"
-          onClick={event => {
+          onClick={() => {
             this.props.onTopPageBtnClicked();
           }}
         >
@@ -51,6 +58,12 @@ export class PersonalColorView extends React.Component {
 class ColorBox extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  static get propTypes() {
+    return {
+      color: PropTypes.string
+    };
   }
 
   render() {

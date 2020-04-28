@@ -33,26 +33,22 @@ export class PersonalColorService {
 
   judgePersonalColorType(answers) {
     const skinJudgeAry = answers.slice(0, answers.length);
-    const eyeJudge = answers.slice(-1)[0];
+    const isSoftEye = answers.slice(-1)[0] === 0;
     const yellowCount = skinJudgeAry.filter(answer => answer === 0).length; // イエローベースの項目数
+    const isYellowBase = yellowCount > (answers.length - 1) / 2;
 
-    if (yellowCount > (answers.length - 1) / 2) {
-      // イエローベースのとき
-      if (eyeJudge === 0) {
-        // springタイプ
-        return PersonalColorType.Spring.string;
-      } else {
-        // autumnタイプ
-        return PersonalColorType.Autumn.string;
-      }
+    if (isYellowBase && isSoftEye) {
+      // Springタイプ
+      return PersonalColorType.Spring.string;
+    } else if (isYellowBase && !isSoftEye) {
+      // Autumnタイプ
+      return PersonalColorService.Autumn.string;
+    } else if (!isYellowBase && isSoftEye) {
+      // Summerタイプ
+      return PersonalColorType.Summer.string;
     } else {
-      if (eyeJudge === 0) {
-        // summerタイプ
-        return PersonalColorType.Summer.string;
-      } else {
-        // winterタイプ
-        return PersonalColorType.Winter.string;
-      }
+      // Winterタイプ
+      return PersonalColorType.Winter.string;
     }
   }
 }

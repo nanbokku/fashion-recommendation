@@ -1,10 +1,8 @@
-import { Reactor } from '../utils/reactor.js';
 import Backbone from 'backbone';
 
-//TODO: backbone.collection継承に変更する
-export class RecommendationsModel {
-  constructor() {
-    this.events = new Reactor();
+export class RecommendationsModel extends Backbone.Model {
+  constructor(props) {
+    super(props);
 
     this.type = null;
     this.women = [];
@@ -15,7 +13,7 @@ export class RecommendationsModel {
     return this.type;
   }
 
-  setPersonalColorType(type) {
+  set personalColorType(type) {
     this.type = type;
   }
 
@@ -23,7 +21,7 @@ export class RecommendationsModel {
     const category = item.category;
     eval('this.' + category).push(item); // カテゴリーごとの配列に格納
 
-    this.events.dispatchEvent('added', item);
+    this.trigger('added', item);
   }
 
   push(items, categoryName) {
@@ -41,15 +39,18 @@ export class RecommendationsModel {
       this.men = this.men.concat(data);
     }
 
-    this.events.dispatchEvent('pushed', data);
+    this.trigger('pushed', data);
   }
 
   getAll(categoryName) {
-    if (categoryName === 'women') {
-      return this.women;
-    } else if (categoryName === 'men') {
-      return this.men;
-    } else return null;
+    switch (categoryName) {
+      case 'women':
+        return this.women;
+      case 'men':
+        return this.men;
+      default:
+        return null;
+    }
   }
 
   get(id) {
@@ -63,17 +64,21 @@ export class RecommendationsModel {
   }
 
   update(item) {
-    if (item.category === 'women') {
-      const index = this.findIndex(this.women, item.id);
-      this.women[index] = item;
-    } else if (item.category === 'men') {
-      const index = this.findIndex(this.men, item.id);
-      this.men[index] = item;
-    } else {
-      return;
+    let index;
+    switch (item.category) {
+      case 'women':
+        index = this.findIndex(this.women, item.id);
+        this.women[index] = item;
+        break;
+      case 'men':
+        index = this.findIndex(this.men, item.id);
+        this.men[index] = item;
+        break;
+      default:
+        return;
     }
 
-    this.events.dispatchEvent('updated', item);
+    this.trigger('updated', item);
   }
 
   deleteAll() {
@@ -82,15 +87,21 @@ export class RecommendationsModel {
   }
 
   delete(id) {
+    // womenを探索
     let index = this.findIndex(this.women, id);
-    if (index) this.women[index].splice(index, 1);
+    if (index >= 0) {
+      this.women[index].splice(index, 1);
+      this.trigger('deleted', id);
+      return;
+    }
 
+    // menを探索
     index = this.findIndex(this.men, id);
-    if (index) this.men[index].splice(index, 1);
-
-    if (!index) return;
-
-    this.events.dispatchEvent('deleted', id);
+    if (index >= 0) {
+      this.men[index].splice(index, 1);
+      this.trigger('deleted', id);
+      return;
+    }
   }
 
   findIndex(items, id) {

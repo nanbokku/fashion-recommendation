@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'react-bootstrap';
 import { CardView } from './card';
 import { CarouselView } from './carousel';
@@ -14,13 +15,17 @@ export class TabView extends React.Component {
 
     this._isMounted = false;
 
-    this.props.model.events.addEventListener('pushed', () => {
+    this.props.model.on('pushed', () => {
       if (!this._isMounted) return;
 
-      const women = this.props.model.getAll('women');
-      const men = this.props.model.getAll('men');
-      this.setState({ women, men });
+      this.setItemData();
     });
+  }
+
+  static get propTypes() {
+    return {
+      model: PropTypes.object
+    };
   }
 
   componentWillUnmount() {
@@ -30,9 +35,7 @@ export class TabView extends React.Component {
   componentDidMount() {
     this._isMounted = true;
 
-    const women = this.props.model.getAll('women');
-    const men = this.props.model.getAll('men');
-    this.setState({ women, men });
+    this.setItemData();
   }
 
   render() {
@@ -51,6 +54,12 @@ export class TabView extends React.Component {
         </Tabs>
       </div>
     );
+  }
+
+  setItemData() {
+    const women = this.props.model.getAll('women');
+    const men = this.props.model.getAll('men');
+    this.setState({ women, men });
   }
 
   createTabContents(data) {

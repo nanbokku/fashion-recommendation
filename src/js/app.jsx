@@ -110,7 +110,7 @@ export class App extends React.Component {
 
     this.recommendModel.deleteAll();
 
-    this.recommendModel.setPersonalColorType(personalColorType);
+    this.recommendModel.personalColorType = personalColorType;
     this.recommendModel.push(womenItems, 'women');
     this.recommendModel.push(menItems, 'men');
   }
